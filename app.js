@@ -24,6 +24,12 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, "0.0.0.0", () => {
-  console.log("server started");
+server.listen(process.env.PORT || 5000, () => {
+  const port = server.address().port;
+  console.log(`Express is working on port ${port}`);
 });
+
+// const server = app.listen(process.env.PORT || 5000, () => {
+//   const port = server.address().port;
+//   console.log(`Express is working on port ${port}`);
+// });
