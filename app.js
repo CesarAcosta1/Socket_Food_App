@@ -44,16 +44,17 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  
+
   console.log('Usuario conectado con el id: ', socket.id);
 
   socket.on('disconnect',function () {
     console.log("Se desconecto el usuario con id: " + socket.id);
   });
 
-  socket.on('chat message', (msg) => {
+  socket.on('msg', (msg) => {
     console.log(msg);
-    io.emit('chat message', msg);
+    console.log("Pruebas de alguna cosas");
+    // io.emit('chat message', msg);
   });
 });
 
