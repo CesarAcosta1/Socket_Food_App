@@ -30,23 +30,35 @@
 // });
 
 
-// Importing express module
+const console = require('console');
+const { Console } = require('console');
 const express = require('express');
 const app = express();
- 
-// Getting Request
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 app.get('/', (req, res) => {
- 
-    // Sending the response
-    res.send('Hello World! 5')
-    
-    // Ending the response
-    res.end()
-})
- 
+  res.send('Hello World! 7')
+});
 
-const PORT = process.env.PORT || 5000;
+io.on('connection', (socket) => {
+  
+  console.log('Usuario conectado con el id: ', socket.id);
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+  socket.on('disconnect',function () {
+    console.log("Se desconecto el usuario con id: " + socket.id);
+  });
 
+  socket.on('chat message', (msg) => {
+    console.log(msg);
+    io.emit('chat message', msg);
+  });
+});
 
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+  console.log("Aplicacion escuchando en el puerto " + PORT);
+  console.log("Presione Ctrl+C para salir");
+});
