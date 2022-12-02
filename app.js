@@ -1,20 +1,41 @@
-// Importing express module
-const express = require('express');
-const app = express();
- 
-// Getting Request
-app.get('/', (req, res) => {
- 
-    // Sending the response
-    res.send('Hello World! 4')
-    
-    // Ending the response
-    res.end()
+const server = require('http').createServer()
+const io = require('socket.io')(server)
+
+io.on('connection', function (client) {
+
+  console.log('client connect...', client.id);
+
+  client.on('typing', function name(data) {
+    console.log(data);
+    io.emit('typing', data)
+  })
+
+  client.on('message', function name(data) {
+    console.log(data);
+    io.emit('message', data)
+  })
+
+  client.on('location', function name(data) {
+    console.log(data);
+    io.emit('location', data);
+  })
+
+  client.on('connect', function () {
+  })
+
+  client.on('disconnect', function () {
+    console.log('client disconnect...', client.id)
+    // handleDisconnect()
+  })
+
+  client.on('error', function (err) {
+    console.log('received error from client:', client.id)
+    console.log(err)
+  })
 })
- 
-// Establishing the port
-const PORT = process.env.PORT ||5000;
- 
-// Executing the server on given port number
-app.listen(PORT, console.log(
-  `Server started on port ${PORT}`));
+
+var server_port = process.env.PORT || 3000;
+server.listen(server_port, function (err) {
+  if (err) throw err
+  console.log('Listening on port %d', server_port);
+});
