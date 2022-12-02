@@ -30,13 +30,23 @@
 // });
 
 
-
-const app = require('express')()
-const http = require('http').createServer(app)
+// Importing express module
+const express = require('express');
+const app = express();
+ 
+// Getting Request
 app.get('/', (req, res) => {
-   res.send("Node Server is running. Yay!!")
+ 
+    // Sending the response
+    res.send('Hello World! 4')
+    
+    // Ending the response
+    res.end()
 })
-http.listen(process.env.PORT,() => {
-  const port = http.address().port;
-  console.log(`Express is working on port ${port}`);
-})
+ 
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, console.log(`Server started on port ${PORT}`));
+
+
