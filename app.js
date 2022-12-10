@@ -53,13 +53,18 @@ io.on('connection', (socket) => {
 
   socket.on('msg', (msg) => {
     console.log(msg);
-    console.log("Pruebas de alguna cosas");
     // io.emit('chat message', msg);
   });
+
+  socket.on('AddArticulo', () => {
+    console.log("Se agrego un articulo");
+    // io.emit('chat message', msg);
+  });
+
 });
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
   console.log("Aplicacion escuchando en el puerto " + PORT);
-  console.log("Presione Ctrl+C para salir");
+  // console.log("Presione Ctrl+C para salir");
 });
