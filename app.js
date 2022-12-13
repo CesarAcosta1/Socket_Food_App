@@ -40,7 +40,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 app.get('/', (req, res) => {
-  res.send('Hello World! 7')
+  res.send('v0.1')
 });
 
 io.on('connection', (socket) => {
