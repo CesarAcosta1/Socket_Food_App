@@ -56,9 +56,9 @@ io.on('connection', (socket) => {
     // io.emit('chat message', msg);
   });
 
-  socket.on('AddArticulo', () => {
+  socket.on('AddArticulo', (data) => {
     // console.log("Se agrego un articulo");
-    io.emit('AddArticulo', socket.id + " - " + "Agrego un articulo");
+    io.emit('AddArticulo', data);
   });
 
 });
